@@ -7,14 +7,24 @@ rescue
   # good, we should have raised
 end
 
-assert true
+def test_assert
+  assert true
 
-should_fail { assert false }
+  should_fail { assert false }
+end
 
-assert_equal 4, 2+2
+def test_assert_equal
+  assert_equal 4, 2+2
 
-should_fail { assert_equal 5, 2+2 }
+  should_fail { assert_equal 5, 2+2 }
+end
 
-assert_in_delta 0.0001, 0.0002
+def test_assert_in_delta
+  assert_in_delta 0.0001, 0.0002
 
-should_fail { assert_in_delta 0.5, 0.6 }
+  should_fail { assert_in_delta 0.5, 0.6 }
+end
+
+test_assert
+test_assert_equal
+test_assert_in_delta
