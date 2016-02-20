@@ -1,3 +1,3 @@
 def assert test
-  raise "Failed test" unless test
+  raise RuntimeError, "Failed test", caller unless test
 end
