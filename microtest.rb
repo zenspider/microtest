@@ -1,5 +1,8 @@
 def assert test
-  raise RuntimeError, "Failed test", caller unless test
+  unless test then
+    backtrace = caller.drop_while { |s| s =~ /#{__FILE__}/ }
+    raise RuntimeError, "Failed test", backtrace
+  end
 end
 
 def assert_equal a, b
