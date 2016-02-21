@@ -8,6 +8,12 @@ rescue
 end
 
 class TestAssertions
+  def self.run
+    public_instance_methods.grep(/^test/).each do |name|
+      self.new.run name
+    end
+  end
+
   def run name
     # TODO: insert setup/teardown scaffolding here
     send name
@@ -32,6 +38,4 @@ class TestAssertions
   end
 end
 
-TestAssertions.new.run :test_assert
-TestAssertions.new.run :test_assert_equal
-TestAssertions.new.run :test_assert_in_delta
+TestAssertions.run
