@@ -8,6 +8,11 @@ rescue
 end
 
 class TestAssertions
+  def run name
+    # TODO: insert setup/teardown scaffolding here
+    send name
+  end
+
   def test_assert
     assert true
 
@@ -27,6 +32,6 @@ class TestAssertions
   end
 end
 
-TestAssertions.new.test_assert
-TestAssertions.new.test_assert_equal
-TestAssertions.new.test_assert_in_delta
+TestAssertions.new.run :test_assert
+TestAssertions.new.run :test_assert_equal
+TestAssertions.new.run :test_assert_in_delta
