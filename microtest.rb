@@ -12,3 +12,16 @@ end
 def assert_in_delta a, b
   assert (a-b).abs <= 0.001, "Failed assert_in_delta #{a} vs #{b}"
 end
+
+class Test
+  def self.run
+    public_instance_methods.grep(/^test/).each do |name|
+      self.new.run name
+    end
+  end
+
+  def run name
+    # TODO: insert setup/teardown scaffolding here
+    send name
+  end
+end

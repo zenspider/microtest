@@ -7,18 +7,7 @@ rescue
   # good, we should have raised
 end
 
-class TestAssertions
-  def self.run
-    public_instance_methods.grep(/^test/).each do |name|
-      self.new.run name
-    end
-  end
-
-  def run name
-    # TODO: insert setup/teardown scaffolding here
-    send name
-  end
-
+class TestAssertions < Test
   def test_assert
     assert true
 
