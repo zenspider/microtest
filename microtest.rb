@@ -18,6 +18,18 @@ end
 class Test
   include Assertions
 
+  TESTS = []
+
+  def self.inherited x
+    TESTS << x
+  end
+
+  def self.run_all_tests
+    TESTS.each do |klass|
+      klass.run
+    end
+  end
+
   def self.run
     public_instance_methods.grep(/^test/).each do |name|
       self.new.run name

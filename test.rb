@@ -27,4 +27,4 @@ class TestAssertions < Test
   end
 end
 
-TestAssertions.run
+Test.run_all_tests
