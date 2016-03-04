@@ -28,11 +28,13 @@ class Test
     TESTS.each do |klass|
       klass.run
     end
+    puts
   end
 
   def self.run
     public_instance_methods.grep(/^test/).each do |name|
       self.new.run name
+      print "."
     end
   end
 
