@@ -22,7 +22,7 @@ class Reporter
     self.failures = []
   end
 
-  def report result
+  def << result
     unless result.failure? then
       print "."
     else
@@ -31,7 +31,7 @@ class Reporter
     end
   end
 
-  def done
+  def summary
     puts
 
     failures.each do |result|
@@ -59,13 +59,12 @@ class Test
       klass.run reporter
     end
 
-    reporter.done
+    reporter.summary
   end
 
   def self.run reporter
     public_instance_methods.grep(/^test/).each do |name|
-      e = self.new(name).run
-      reporter.report e
+      reporter << self.new(name).run
     end
   end
 
