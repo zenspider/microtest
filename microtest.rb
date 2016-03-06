@@ -21,8 +21,8 @@ class Reporter
       print "."
     else
       puts
-      puts "Failure: #{k}##{name}: #{e.message}"
-      puts "  #{e.backtrace.first}"
+      puts "Failure: #{k}##{name}: #{e.failure.message}"
+      puts "  #{e.failure.backtrace.first}"
     end
   end
 
@@ -57,11 +57,18 @@ class Test
     end
   end
 
+  attr_accessor :failure
+
+  def initialize
+    self.failure = false
+  end
+
   def run name
     # TODO: insert setup/teardown scaffolding here
     send name
     false
   rescue => e
-    e
+    self.failure = e
+    self
   end
 end
