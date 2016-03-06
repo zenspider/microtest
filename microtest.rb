@@ -16,19 +16,30 @@ module Assertions
 end
 
 class Reporter
+  attr_accessor :failures
+
+  def initialize
+    self.failures = []
+  end
+
   def report result
     unless result.failure? then
       print "."
     else
-      failure = result.failure
-      puts
-      puts "Failure: #{result.class}##{result.name}: #{failure.message}"
-      puts "  #{failure.backtrace.first}"
+      print "F"
+      failures << result
     end
   end
 
   def done
     puts
+
+    failures.each do |result|
+      failure = result.failure
+      puts
+      puts "Failure: #{result.class}##{result.name}: #{failure.message}"
+      puts "  #{failure.backtrace.first}"
+    end
   end
 end
 
