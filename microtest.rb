@@ -15,6 +15,22 @@ module Assertions
   end
 end
 
+class Reporter
+  def report e, name
+    unless e then
+      print "."
+    else
+      puts
+      puts "Failure: #{self}##{name}: #{e.message}"
+      puts "  #{e.backtrace.first}"
+    end
+  end
+
+  def done
+    puts
+  end
+end
+
 class Test
   include Assertions
 
@@ -25,26 +41,19 @@ class Test
   end
 
   def self.run_all_tests
+    reporter = Reporter.new
+
     TESTS.each do |klass|
-      klass.run
+      klass.run reporter
     end
-    puts
+
+    reporter.done
   end
 
-  def self.run
+  def self.run reporter
     public_instance_methods.grep(/^test/).each do |name|
       e = self.new.run name
-      report e, name
-    end
-  end
-
-  def self.report e, name
-    unless e then
-      print "."
-    else
-      puts
-      puts "Failure: #{self}##{name}: #{e.message}"
-      puts "  #{e.backtrace.first}"
+      reporter.report e, name
     end
   end
 
