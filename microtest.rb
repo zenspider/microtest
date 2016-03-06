@@ -16,12 +16,12 @@ module Assertions
 end
 
 class Reporter
-  def report e, k, name
+  def report e, name
     unless e then
       print "."
     else
       puts
-      puts "Failure: #{k}##{name}: #{e.failure.message}"
+      puts "Failure: #{e.class}##{name}: #{e.failure.message}"
       puts "  #{e.failure.backtrace.first}"
     end
   end
@@ -53,7 +53,7 @@ class Test
   def self.run reporter
     public_instance_methods.grep(/^test/).each do |name|
       e = self.new.run name
-      reporter.report e, self, name
+      reporter.report e, name
     end
   end
 
