@@ -33,10 +33,11 @@ class Test
 
   def self.run
     public_instance_methods.grep(/^test/).each do |name|
-      begin
-        self.new.run name
+      e = self.new.run name
+
+      unless e then
         print "."
-      rescue => e
+      else
         puts
         puts "Failure: #{self}##{name}: #{e.message}"
         puts "  #{e.backtrace.first}"
@@ -47,5 +48,8 @@ class Test
   def run name
     # TODO: insert setup/teardown scaffolding here
     send name
+    false
+  rescue => e
+    e
   end
 end
