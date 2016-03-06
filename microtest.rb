@@ -17,7 +17,7 @@ end
 
 class Reporter
   def report e
-    unless e then
+    unless e.failure? then
       print "."
     else
       puts
@@ -59,6 +59,7 @@ class Test
 
   attr_accessor :name
   attr_accessor :failure
+  alias failure? failure
 
   def initialize name
     self.name = name
@@ -68,9 +69,9 @@ class Test
   def run
     # TODO: insert setup/teardown scaffolding here
     send name
-    false
   rescue => e
     self.failure = e
-    self
+  ensure
+    return self
   end
 end
