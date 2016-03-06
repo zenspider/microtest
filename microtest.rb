@@ -34,14 +34,17 @@ class Test
   def self.run
     public_instance_methods.grep(/^test/).each do |name|
       e = self.new.run name
+      report e, name
+    end
+  end
 
-      unless e then
-        print "."
-      else
-        puts
-        puts "Failure: #{self}##{name}: #{e.message}"
-        puts "  #{e.backtrace.first}"
-      end
+  def self.report e, name
+    unless e then
+      print "."
+    else
+      puts
+      puts "Failure: #{self}##{name}: #{e.message}"
+      puts "  #{e.backtrace.first}"
     end
   end
 
