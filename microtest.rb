@@ -16,12 +16,12 @@ module Assertions
 end
 
 class Reporter
-  def report e, name
+  def report e
     unless e then
       print "."
     else
       puts
-      puts "Failure: #{e.class}##{name}: #{e.failure.message}"
+      puts "Failure: #{e.class}##{e.name}: #{e.failure.message}"
       puts "  #{e.failure.backtrace.first}"
     end
   end
@@ -52,18 +52,20 @@ class Test
 
   def self.run reporter
     public_instance_methods.grep(/^test/).each do |name|
-      e = self.new.run name
-      reporter.report e, name
+      e = self.new(name).run
+      reporter.report e
     end
   end
 
+  attr_accessor :name
   attr_accessor :failure
 
-  def initialize
+  def initialize name
+    self.name = name
     self.failure = false
   end
 
-  def run name
+  def run
     # TODO: insert setup/teardown scaffolding here
     send name
     false
