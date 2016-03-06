@@ -16,13 +16,14 @@ module Assertions
 end
 
 class Reporter
-  def report e
-    unless e.failure? then
+  def report result
+    unless result.failure? then
       print "."
     else
+      failure = result.failure
       puts
-      puts "Failure: #{e.class}##{e.name}: #{e.failure.message}"
-      puts "  #{e.failure.backtrace.first}"
+      puts "Failure: #{result.class}##{result.name}: #{failure.message}"
+      puts "  #{failure.backtrace.first}"
     end
   end
 
