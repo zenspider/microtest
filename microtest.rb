@@ -63,7 +63,7 @@ class Test
   end
 
   def self.test_names
-    public_instance_methods.grep(/^test/)
+    public_instance_methods.grep(/^test/).shuffle
   end
 
   def self.run reporter
