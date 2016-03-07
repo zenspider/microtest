@@ -62,8 +62,12 @@ class Test
     reporter.summary
   end
 
+  def self.test_names
+    public_instance_methods.grep(/^test/)
+  end
+
   def self.run reporter
-    public_instance_methods.grep(/^test/).each do |name|
+    test_names.each do |name|
       reporter << self.new(name).run
     end
   end
